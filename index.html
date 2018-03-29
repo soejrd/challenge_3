@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Challenge 3</title>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key= AIzaSyAtqZh60YXMTO7bOrxxxy9BqgzbvuaSvhk"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        fetch('https://api.seatgeek.com/2/events?per_page=25&geoip=true&range=750km&client_id=MTA5NzU5NTV8MTUyMTkwMzc3My40NA').then(
+            function(response) {
+                return response.json();
+            }
+        ).then(function(jsonData) {
+            console.log(jsonData)
+            //handle json data processing here 
+            initMap();
+
+            function initMap() {
+                var positionLat = Number(jsonData.meta.geolocation.lat)
+                var positionLon = Number(jsonData.meta.geolocation.lon);
+                console.log(positionLat, positionLon);
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 5,
+                    center: {
+                        lat: positionLat,
+                        lng: positionLon
+                    },
+                    styles: [{
+                            "featureType": "all",
+                            "elementType": "labels.text.fill",
+                            "stylers": [{
+                                    "saturation": 36
+                                },
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 40
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.text.stroke",
+                            "stylers": [{
+                                    "visibility": "on"
+                                },
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 16
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.icon",
+                            "stylers": [{
+                                "visibility": "off"
+                            }]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.fill",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 20
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.stroke",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 17
+                                },
+                                {
+                                    "weight": 1.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "labels.text",
+                            "stylers": [{
+                                    "visibility": "simplified"
+                                },
+                                {
+                                    "lightness": "100"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative.country",
+                            "elementType": "labels.text",
+                            "stylers": [{
+                                "lightness": "100"
+                            }]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "geometry",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 20
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "labels",
+                            "stylers": [{
+                                "visibility": "off"
+                            }]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "geometry",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 21
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "labels.text",
+                            "stylers": [{
+                                "visibility": "off"
+                            }]
+                        },
+                        {
+                            "featureType": "road",
+                            "elementType": "labels.text",
+                            "stylers": [{
+                                "visibility": "off"
+                            }]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.fill",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 17
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.stroke",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 29
+                                },
+                                {
+                                    "weight": 0.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.arterial",
+                            "elementType": "geometry",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 18
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.local",
+                            "elementType": "geometry",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 16
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "geometry",
+                            "stylers": [{
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 19
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "labels.text",
+                            "stylers": [{
+                                "visibility": "off"
+                            }]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "geometry",
+                            "stylers": [{
+                                    "color": "#ffcc1e"
+                                },
+                                {
+                                    "lightness": 17
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "labels.text",
+                            "stylers": [{
+                                "visibility": "off"
+                            }]
+                        }
+                    ]
+                });
+                var markerArray = [''];
+                for (i = 0; i < jsonData.events.length; i++) {
+                    var infowindow = new google.maps.InfoWindow({
+                        content: jsonData.events[i].venue.city
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: {
+                            lat: Number(jsonData.events[i].venue.location.lat),
+                            lng: Number(jsonData.events[i].venue.location.lon)
+                        },
+                        map: map,
+                        label: {
+                            text: String(jsonData.events[i].venue.city),
+                            color: 'white'
+                        },
+                        title: String(jsonData.events[i].title),
+
+                    });
+                    markerArray.push(marker);
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow.setContent('<h3>' + this.title + '</h3>');
+                        infowindow.open(map, this);
+                    });
+                }
+
+            }
+        })
+
+    </script>
+</head>
+
+<body>
+    <h1>10 Beste landingsplekken</h1>
+    <h2>Op basis van concerten waar nog kaarten van te koop zijn</h2>
+    <div id="map"></div>
+
+
+</body>
+
+</html>
