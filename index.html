@@ -12,10 +12,8 @@
                 return response.json();
             }
         ).then(function(jsonData) {
-            console.log(jsonData)
-            //handle json data processing here 
             initMap();
-
+            console.log(jsonData);
             function initMap() {
                 var positionLat = Number(jsonData.meta.geolocation.lat)
                 var positionLon = Number(jsonData.meta.geolocation.lon);
@@ -237,7 +235,6 @@
                     var infowindow = new google.maps.InfoWindow({
                         content: jsonData.events[i].venue.city
                     });
-
                     var marker = new google.maps.Marker({
                         position: {
                             lat: Number(jsonData.events[i].venue.location.lat),
@@ -249,7 +246,6 @@
                             color: 'white'
                         },
                         title: String(jsonData.events[i].title),
-
                     });
                     markerArray.push(marker);
                     google.maps.event.addListener(marker, 'click', function() {
@@ -257,7 +253,6 @@
                         infowindow.open(map, this);
                     });
                 }
-
             }
         })
 
